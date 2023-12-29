@@ -26,11 +26,10 @@ class PaymentRequest {
   #name = '@google/react-native-make-payment';
   #version = '0.1.2';
 
-  constructor(paymentMethods, paymentDetails) {
+  constructor(paymentMethods) {
     this.paymentMethods = Object.fromEntries(
       paymentMethods.map((pm) => [pm.supportedMethods, pm.data])
     );
-    this.paymentDetails = paymentDetails;
 
     try {
       const pkg = require('../package.json');
@@ -38,12 +37,18 @@ class PaymentRequest {
       this.#version = pkg.version;
     } catch (_) {}
 
-    if (this.paymentMethods[GOOGLE_PAY_PMI] && !this.paymentMethods[GOOGLE_PAY_PMI].merchantInfo.softwareInfo) {
-      this.paymentMethods[GOOGLE_PAY_PMI].merchantInfo.softwareInfo = {
-        id: this.#name.split('/').pop(),
-        version: this.#version,
-      };
+    if(!this.paymentMethods[GOOGLE_PAY_PMI] || this.paymentMethods[GOOGLE_PAY_PMI].merchantInfo?.softwareInfo){
+      return
     }
+
+    if(!this.paymentMethods[GOOGLE_PAY_PMI].merchantInfo) {
+      this.paymentMethods[GOOGLE_PAY_PMI].merchantInfo = {}
+    }
+
+    this.paymentMethods[GOOGLE_PAY_PMI].merchantInfo.softwareInfo = {
+      id: this.#name.split('/').pop(),
+      version: this.#version,
+    };
   }
 
   canMakePayment() {
