@@ -8,12 +8,10 @@
   "main": "src/index.jsx",
   "files": [
     "src",
-    "lib",
     "android",
     "ios",
     "cpp",
     "*.podspec",
-    "!lib/typescript/example",
     "!ios/build",
     "!android/build",
     "!android/gradle",
