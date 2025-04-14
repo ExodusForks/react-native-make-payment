@@ -57,8 +57,22 @@ object Convert {
                 ReadableType.Boolean -> array.put(readableArray.getBoolean(i))
                 ReadableType.Number -> array.put(readableArray.getDouble(i))
                 ReadableType.String -> array.put(readableArray.getString(i))
-                ReadableType.Map -> array.put(mapToJson(readableArray.getMap(i)))
-                ReadableType.Array -> array.put(arrayToJson(readableArray.getArray(i)))
+                ReadableType.Map -> {
+                    val innerMap = readableArray.getMap(i)
+                    if (innerMap != null) {
+                        array.put(mapToJson(innerMap))
+                    } else {
+                        array.put(JSONObject.NULL)
+                    }
+                }
+                ReadableType.Array -> {
+                    val innerArray = readableArray.getArray(i)
+                    if (innerArray != null) {
+                        array.put(arrayToJson(innerArray))
+                    } else {
+                        array.put(JSONObject.NULL)
+                    }
+                }
             }
         }
         return array
