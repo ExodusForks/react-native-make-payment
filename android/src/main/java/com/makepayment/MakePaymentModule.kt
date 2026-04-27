@@ -118,7 +118,7 @@ class MakePaymentModule(reactContext: ReactApplicationContext) :
         }
 
         loadPaymentDataPromise = promise
-        currentActivity?.let { activity ->
+        reactApplicationContext.currentActivity?.let { activity ->
             AutoResolveHelper.resolveTask(
                 paymentsClient.loadPaymentData(PaymentDataRequest.fromJson(json)),
                 activity, LOAD_PAYMENT_DATA_REQUEST_CODE
