@@ -74,4 +74,4 @@ class PaymentRequest {
   }
 }
 
-module.exports = { PaymentRequest, GooglePayButton, GooglePayButtonConstants };
+export { PaymentRequest, GooglePayButton, GooglePayButtonConstants };

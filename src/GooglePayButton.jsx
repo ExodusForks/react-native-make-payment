@@ -60,4 +60,4 @@ const styles = StyleSheet.create({
     nativeButtonStyle: { flex: 1 },
 });
 
-module.exports = { GooglePayButton, GooglePayButtonConstants };
+export { GooglePayButton, GooglePayButtonConstants };
